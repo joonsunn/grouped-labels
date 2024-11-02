@@ -1,0 +1,36 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id         String      @id @default(uuid())
+  name       String?
+  userLabels UserLabel[]
+}
+
+model LabelGroup {
+  id     String  @id @default(uuid())
+  name   String
+  labels Label[]
+}
+
+model Label {
+  id           String      @id @default(uuid())
+  name         String
+  labelGroupId String
+  labelGroup   LabelGroup  @relation(fields: [labelGroupId], references: [id], onDelete: Cascade)
+  userLabel    UserLabel[]
+}
+
+model UserLabel {
+  id      String @id @default(uuid())
+  userId  String
+  labelId String
+  user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  label   Label  @relation(fields: [labelId], references: [id], onDelete: Cascade)
+}
