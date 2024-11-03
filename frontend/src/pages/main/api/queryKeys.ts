@@ -1,5 +1,10 @@
 const usersKeys = {
   getAllUsers: () => ['users'],
+  getUserById: (id: string) => ['users', id],
 };
 
-export const queryKeys = Object.assign({ usersKeys });
+const labelsKeys = {
+  getAllLabelGroups: () => ['labelGroups'],
+};
+
+export const queryKeys = Object.assign({ usersKeys, labelsKeys });
