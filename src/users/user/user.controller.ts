@@ -12,7 +12,6 @@ import {
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import isEqual from 'lodash/isEqual';
 import { QueryUserDto } from 'src/users/user/dto/query-user.dto';
 
 @Controller('user')
@@ -27,7 +26,7 @@ export class UserController {
 
   @Get()
   async findAll(@Query() query: QueryUserDto) {
-    if (isEqual(query, {})) {
+    if (Object.keys(Object(query)).length === 0) {
       return await this.userService.findAll();
     }
 
